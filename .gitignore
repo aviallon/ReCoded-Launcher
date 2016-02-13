@@ -148,3 +148,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Creator data
+creator_workspace/

@@ -1,9 +1,9 @@
 #!/bin/sh
 
-version=4.3.2
+version=4.4
 
 # Compiling
-bash ./gradlew -Pversion=$version clean build
+bash ./gradlew clean build
 cp launcher-bootstrap/build/libs/launcher-bootstrap-$version-all.jar build/dobbylauncher.jar
 
 # Creating the .jar.pack

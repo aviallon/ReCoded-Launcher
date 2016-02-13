@@ -14,6 +14,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Level;
 
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.*;
+
 @Log
 public class FancyLauncher {
 
@@ -27,14 +30,12 @@ public class FancyLauncher {
                     Thread.currentThread().setContextClassLoader(FancyLauncher.class.getClassLoader());
                     UIManager.getLookAndFeelDefaults().put("ClassLoader", FancyLauncher.class.getClassLoader());
                     UIManager.getDefaults().put("SplitPane.border", BorderFactory.createEmptyBorder());
-                    JFrame.setDefaultLookAndFeelDecorated(true);
-                    JDialog.setDefaultLookAndFeelDecorated(true);
-                    System.setProperty("sun.awt.noerasebackground", "true");
-                    System.setProperty("substancelaf.windowRoundedCorners", "false");
+                    JFrame.setDefaultLookAndFeelDecorated(false);
+                    JDialog.setDefaultLookAndFeelDecorated(false);
+                    //System.setProperty("sun.awt.noerasebackground", "true");
+                    //System.setProperty("substancelaf.windowRoundedCorners", "false");
 
-                    if (!SwingHelper.setLookAndFeel("com.skcraft.launcher.skin.LauncherLookAndFeel")) {
-                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    }
+                    UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel");
 
                     Launcher launcher = Launcher.createFromArguments(args);
                     launcher.setMainWindowSupplier(new CustomWindowSupplier(launcher));
