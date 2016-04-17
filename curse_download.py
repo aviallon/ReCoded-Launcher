@@ -59,34 +59,28 @@ def download_curseforge_mods(mods, target, game_version):
         download(url, target)
 
 
-def update_modpacks(modpacks):
+def update_modpacks(modpack_name):
     """
         Copy and download mods for each modpack
     """
-    for modpack_name in modpacks:
-        src_directory = "modpack-" + modpack_name + "/"
-        target_directory = "creator_workspace/" + modpack_name + "/"
+    src_directory = "modpack-" + modpack_name + "/"
+    target_directory = "creator_workspace/" + modpack_name + "/"
 
-        # Get the list of mods
-        print("[INFO] Loading " + modpack_name + " packages...")
-        with open(src_directory + 'mods.json') as data_file:    
-            mods = json.load(data_file)
+    # Get the list of mods
+    print("[INFO] Loading " + modpack_name + " packages...")
+    with open(src_directory + 'curse_mods.json') as data_file:    
+        mods = json.load(data_file)
 
-        # Copy manifest and get the version of the modpack
-        shutil.copyfile(src_directory + "modpack.json", target_directory + "modpack.json")
-        with open(src_directory + 'modpack.json') as data_file:    
-            version = json.load(data_file)["gameVersion"]
+    # Copy manifest and get the version of the modpack
+    shutil.copyfile(src_directory + "modpack.json", target_directory + "modpack.json")
+    with open(src_directory + 'modpack.json') as data_file:    
+        version = json.load(data_file)["gameVersion"]
 
-        # Download and copy mods
-        download_curseforge_mods(mods["curseforge_coremods"], target_directory + "src/coremods/", version)  # Core mods
-        download_curseforge_mods(mods["curseforge_mods"], target_directory + "src/mods/", version)  # Main mods
-        download_curseforge_mods(mods["curseforge_client_mods"], target_directory + "src/mods/_CLIENT/", version)  # Client-only mods
-        download_curseforge_mods(mods["curseforge_server_mods"], target_directory + "src/mods/_SERVER/", version)  # Server-only mods
-        copy_dir(src_directory + "mods-manual/", target_directory + "src/mods/")
-        if os.path.isdir(src_directory + "config/"):
-            copy_dir(src_directory + "config/", target_directory + "src/config/")
+    # Download
+    download_curseforge_mods(mods["curseforge_coremods"], target_directory + "src/coremods/", version)  # Core mods
+    download_curseforge_mods(mods["curseforge_mods"], target_directory + "src/mods/", version)  # Main mods
+    download_curseforge_mods(mods["curseforge_client_mods"], target_directory + "src/mods/_CLIENT/", version)  # Client-only mods
+    download_curseforge_mods(mods["curseforge_server_mods"], target_directory + "src/mods/_SERVER/", version)  # Server-only mods
 
-
-modpacks = ["dobbyvanilla", "badapack", "dobbymod", "dobbymod-magic", "dobbytech"]
-update_modpacks(modpacks)
+update_modpacks("badapack")
 
